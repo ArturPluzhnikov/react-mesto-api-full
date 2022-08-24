@@ -1,0 +1,17 @@
+.form__button_disabled {
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  color: #e5e5e5;
+  cursor: auto;
+}
+
+@media screen and (max-width: 680px) {
+  .form__button_disabled {
+    width: 238px;
+    height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0 0;
+    margin-bottom: 25px;
+  }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+</head> 
+  <body class="page">
+
+    <div class="popup popup-profile">
+      <div class="popup-profile__container">
+        <button class="close-button popup-profile__close-button" type="button" aria-label="close"></button>
+        <form class="form form-profile" name="formProfile" novalidate>
+          <h2 class="form__title">Редактировать профиль</h2>
+          <div class="form__data-container">
+            <label class="form__field">
+              <input class="form__input form__input_type_name" type="text" name="nameProfile" id="name-input" placeholder="Имя" required minlength="2" maxlength="40">
+              <span class="form__input-error name-input-error"></span>
+            </label>
+            <label class="form__field">  
+              <input class="form__input form__input_type_description" type="text" name="jobProfile" id="job-input" placeholder="Описание" required minlength="2" maxlength="200">
+              <span class="form__input-error job-input-error"></span>
+            </label>
+            <button class="form__button" type="submit">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="popup popup-places">
+      <div class="popup-places__container">
+        <button class="close-button popup-places__close-button" type="button" aria-label="close"></button>
+        <form class="form form-places" name="formPlaces" novalidate>
+          <h2 class="form__title">Новое место</h2>
+          <div class="form__data-container">
+            <label class="form__field">
+              <input class="form__input form__input_type_title" type="text" name="titlePlaces" id="title-input" placeholder="Название" required minlength="2" maxlength="30">
+              <span class="form__input-error title-input-error"></span>
+            </label>
+            <label class="form__field">
+              <input class="form__input form__input_type_link" type="url" name="linkPlaces" id="link-input" placeholder="Ссылка на картинку" required>
+              <span class="form__input-error link-input-error"></span>
+            </label>
+            <button class="form__button" type="submit">Создать</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-photo">
+      <div class="popup-photo__container">
+        <img class="popup-photo__image" src="#" alt="">
+        <button class="close-button popup-photo__close-button" type="button" aria-label="close"></button>
+        <h2 class="popup-photo__title"></h2>
+      </div>
+    </div>
+
+    <div class="popup popup-confirm-delete">
+      <div class="popup-confirm-delete__container">
+        <button class="close-button popup-confirm-delete__close-button" type="button" aria-label="close"></button>
+        <form class="form form-confirm-delete" name="formDelete" novalidate>
+          <h2 class="form__title">Вы уверены?</h2>
+          <div class="form__data-container">
+            <button class="form__button form-confirm-delete__button" type="button">Да</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-avatar-change">
+      <div class="popup-avatar-change__container">
+        <button class="close-button popup-avatar-change__close-button" type="button" aria-label="close"></button>
+        <form class="form form-avatar-change" name="formAvatar" novalidate>
+          <h2 class="form__title">Обновить аватар</h2>
+          <div class="form__data-container">
+            <label class="form__field">
+              <input class="form__input form__input_type_link" type="url" name="avatar" id="avatar-input" placeholder="Ссылка на картинку" required>
+              <span class="form__input-error avatar-input-error"></span>
+            </label>
+            <button class="form__button" type="submit">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+    <header class="header">
+      <!-- <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип"> -->
+      <div class="header__logo"></div>
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__info">
+          <div class="profile__avatar-button">
+            <!-- <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар"> -->
+            <div class="profile__avatar"></div>
+            <div class="profile__avatar-cover"></div>
+          </div>
+          <div class="profile__description">
+              <h1 class="profile__title"></h1>
+              <p class="profile__subtitle"></p>
+              <button class="profile__edit-button" type="button" aria-label="edit">
+              </button>
+          </div>
+        </div>
+        <button class="profile__add-button" type="button">
+        </button>
+      </section>
+      <section class="elements">
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__title">© 2020 Mesto Russia</p>
+    </footer>
+
+    <template id="card-template">
+      <article class="grid-element">
+        <button class="grid-element__trash" type="button"></button>
+        <img class="grid-element__image" src="./images/dombai.jpg" alt="">
+        <div class="grid-element__description">
+          <h2 class="grid-element__title"></h2>
+          <div class="grid-element__emoji-container">
+            <button class="grid-element__emoji" type="button" aria-label="like">
+            </button>
+            <p class="grid-element__emoji-counter">0</p>
+          </div>
+        </div>
+      </article>
+    </template>
+
+  </body>
+</html>

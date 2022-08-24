@@ -1,0 +1,18 @@
+.grid-element__emoji {
+  border: none;
+  background-image: url(../../../images/like.svg);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  min-width: 22px;
+  height: 18px;
+  transition: 0.3s;
+  margin-right: 20px;
+  cursor: pointer;
+  padding: 0 0;
+}
+
+.grid-element__emoji:hover {
+  opacity: 0.5;
+}

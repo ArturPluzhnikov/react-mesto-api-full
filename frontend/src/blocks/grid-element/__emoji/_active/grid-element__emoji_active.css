@@ -1,0 +1,4 @@
+.grid-element__emoji_active {
+  opacity: 1;
+  background-image: url(../../../../images/like_active.svg);
+}
