@@ -2,6 +2,8 @@ const allowedCors = [
   'https://artur.artbox.nomoredomains.sbs',
   'https://api.arturartbox.students.nomoredomains.sbs',
   'http://localhost:3000',
+  'https://www.artur.artbox.nomoredomains.sbs',
+  'https://www.api.arturartbox.students.nomoredomains.sbs',
 ];
 
 module.exports = ((req, res, next) => {
