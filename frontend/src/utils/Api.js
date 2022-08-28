@@ -65,9 +65,9 @@ class Api {
 }
 
 const api = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-41",
+  url: "http://api.arturartbox.students.nomoredomains.sbs",
   headers: {
-    authorization: "7ec19880-e955-428d-8868-39ad3dda56bd",
+    authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
   },
 });

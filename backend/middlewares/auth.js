@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const Unauthorized = require('../errors/Unauthorized');
 
 // eslint-disable-next-line consistent-return
