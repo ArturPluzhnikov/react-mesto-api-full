@@ -12,7 +12,7 @@ const { auth } = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
 const { errorHandler } = require('./errors/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// const cors = require('./middlewares/cors');
+const cors = require('./middlewares/cors');
 
 const PORT = process.env.PORT || 3000;
 
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
-// app.use(cors());
+app.use(cors());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
