@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 // eslint-disable-next-line import/no-unresolved
 const { errors, celebrate, Joi } = require('celebrate');
 
+// eslint-disable-next-line import/no-unresolved
+const cors = require('cors');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
@@ -12,7 +14,6 @@ const { auth } = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
 const { errorHandler } = require('./errors/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
 
 const PORT = process.env.PORT || 3000;
 
