@@ -94,10 +94,10 @@ function App() {
         setCurrentUser(user);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((er) => console.log(er));
   }
 
-  function handleAvatarUpdate(data) {
+  function handleAvatarUpdate(link) {
     api
       .changeAvatar(link, token)
       .then((user) => {
