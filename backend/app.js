@@ -15,7 +15,7 @@ const { auth } = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
 const { errorHandler } = require('./errors/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { allowedCors } = require('./utils/allowedCors');
+// const { allowedCors } = require('./utils/allowedCors');
 
 const PORT = process.env.PORT || 3000;
 
@@ -24,7 +24,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors(allowedCors));
+app.use(cors());
 
 app.use(requestLogger);
 

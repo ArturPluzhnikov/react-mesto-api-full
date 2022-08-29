@@ -32,6 +32,12 @@ function App() {
     email: "",
     password: "",
   });
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isOnSuccess, setIsOnSuccess] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] =
+    React.useState(false);
+  const history = useHistory();
   const [token, setToken] = React.useState('');
 
   function handleEditProfileClick() {
@@ -133,12 +139,6 @@ function App() {
   }, [isLoggedIn]);
 
   ////////////////////////////новая интерактивность////////////////////////
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [isOnSuccess, setIsOnSuccess] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] =
-    React.useState(false);
-  const history = useHistory();
 
   function handleInfoOpen(res) {
     setIsOnSuccess(res);
