@@ -4,29 +4,35 @@ class Api {
     this.headers = config.headers;
   }
 
-  changeAvatar(data) {
+  changeAvatar(link, token) {
     return fetch(`${this.url}/users/me/avatar`, {
       method: "PATCH",
-      headers: this.headers,
-      body: JSON.stringify(data),
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ avatar: link }),
     }).then((res) => this._error(res));
   }
 
-  getInitialCards() {
+  getInitialCards(token) {
     return fetch(`${this.url}/cards`, {
       method: "GET",
-      headers: this.headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._error(res));
   }
 
-  getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
-      method:"GET",
+  getUserInfo(token) {
+    return fetch(`${this.url}/users/me`, {
+      method: "GET",
       headers: {
-          ...this._headers,
-          Authorization: `Bearer ${token}`
+        ...this._headers,
+        Authorization: `Bearer ${token}`,
       },
-  }).then((res) => this._error(res));
+    }).then((res) => this._error(res));
   }
 
   // getUserInfo() {
@@ -36,33 +42,45 @@ class Api {
   //   }).then((res) => this._error(res));
   // }
 
-  changeUserInfo(data) {
+  changeUserInfo({ name, about }, token) {
     return fetch(`${this.url}/users/me`, {
       method: "PATCH",
-      headers: this.headers,
-      body: JSON.stringify(data),
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name: name, about: about }),
     }).then((res) => this._error(res));
   }
 
-  addNewCard(data) {
+  addNewCard({ name, link, _id }, token) {
     return fetch(`${this.url}/cards`, {
       method: "POST",
-      headers: this.headers,
-      body: JSON.stringify(data),
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name: name, link: link, _id: _id }),
     }).then((res) => this._error(res));
   }
 
-  deleteCard(id) {
+  deleteCard(id, token) {
     return fetch(`${this.url}/cards/${id}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._error(res));
   }
 
-  changeLikeCardStatus(id, status) {
+  changeLikeCardStatus(id, status, token) {
     return fetch(`${this.url}/cards/likes/${id}`, {
       method: status ? "PUT" : "DELETE",
-      headers: this.headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._error(res));
   }
 
@@ -75,10 +93,10 @@ class Api {
 }
 
 const api = new Api({
-  url: "http://api.arturartbox.students.nomoredomains.sbs",
+  url: "https://api.arturartbox.students.nomoredomains.sbs",
   headers: {
-    authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 

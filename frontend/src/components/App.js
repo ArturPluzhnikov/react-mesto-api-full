@@ -32,6 +32,7 @@ function App() {
     email: "",
     password: "",
   });
+  const [token, setToken] = React.useState('');
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -67,7 +68,7 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .changeLikeCardStatus(card._id, !isLiked, token)
       .then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
@@ -78,7 +79,7 @@ function App() {
 
   function handleCardDelete(card) {
     api
-      .deleteCard(card._id)
+      .deleteCard(card._id, token)
       .then(() => {
         setCards((state) => state.filter((c) => (c._id === card._id ? "" : c)));
         closeAllPopups();
@@ -88,7 +89,7 @@ function App() {
 
   function handleUpdateUser(data) {
     api
-      .changeUserInfo(data)
+      .changeUserInfo(data, token)
       .then((user) => {
         setCurrentUser(user);
         closeAllPopups();
@@ -98,7 +99,7 @@ function App() {
 
   function handleAvatarUpdate(data) {
     api
-      .changeAvatar(data)
+      .changeAvatar(link, token)
       .then((user) => {
         setCurrentUser(user);
         closeAllPopups();
@@ -108,7 +109,7 @@ function App() {
 
   function handleAddCard(data) {
     api
-      .addNewCard(data)
+      .addNewCard(data, token)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -117,13 +118,19 @@ function App() {
   }
 
   React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    const token = localStorage.getItem("token");
+    if (isLoggedIn) {
+        Promise.all([api.getUserInfo(token), api.getInitialCards(token)])                    
+            .then(([user, cards]) => {
+                setCurrentUser(user);
+                setEmail(user.email);
+                setCards(cards);
+                history.push("/");
+            })
+            .catch((err) => console.log(err));
+        }
+    if (!isLoggedIn) { setCurrentUser({}); }
+  }, [isLoggedIn]);
 
   ////////////////////////////новая интерактивность////////////////////////
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -145,21 +152,17 @@ function App() {
   }
 
   function tokenCheck() {
-    if (localStorage.getItem("token")) {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
       if (token) {
-        auth
-          .getContent(token)
-          .then((res) => {
-            if (res) {
-              setIsLoggedIn(true);
-              setEmail(res.data.email);
-              history.push("/");
-            }
+        setToken(token);
+        auth.getContent(token)
+          .then((data) => {
+            setIsLoggedIn(true);
+            setEmail(data.email);               
+            history.push("/");
           })
           .catch((err) => console.log(err));
-      }
     }
   }
 

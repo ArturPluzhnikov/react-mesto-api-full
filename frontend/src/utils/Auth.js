@@ -1,14 +1,13 @@
 class Auth {
   constructor(config) {
     this.url = config.url;
+    this.headers = config.headers;
   }
 
   register(password, email) {
     return fetch(`${this.url}/signup`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
       body: JSON.stringify({ password, email }),
     }).then((res) => this._error(res));
   }
@@ -16,21 +15,9 @@ class Auth {
   login(password, email) {
     return fetch(`${this.url}/signin`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password: password,
-        email: email,
-      }),
-    })
-      .then((res) => this._error(res))
-      .then((data) => {
-        if (data) {
-          localStorage.setItem("token", data.token);
-          return data;
-        }
-      });
+      headers: this.headers,
+      body: JSON.stringify({ password, email }),
+    }).then((res) => this._error(res));
   }
 
   getContent(token) {
@@ -52,5 +39,8 @@ class Auth {
 }
 
 export const auth = new Auth({
-  url: "http://api.arturartbox.students.nomoredomains.sbs",
+  url: "https://api.arturartbox.students.nomoredomains.sbs",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
