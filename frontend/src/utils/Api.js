@@ -95,8 +95,8 @@ class Api {
 const api = new Api({
   url: "https://api.arturartbox.students.nomoredomains.sbs",
   headers: {
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",
-    "Accept": "application/json",
   },
 });
 
