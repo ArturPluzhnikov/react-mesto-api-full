@@ -96,7 +96,7 @@ const api = new Api({
   url: "https://api.arturartbox.students.nomoredomains.sbs",
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json",
+    "Accept": "application/json",
   },
 });
 
