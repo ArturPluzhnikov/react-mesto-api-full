@@ -20,11 +20,21 @@ class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this.url}/users/me`, {
-      method: "GET",
-      headers: this.headers,
-    }).then((res) => this._error(res));
+    return fetch(`${this._url}/users/me`, {
+      method:"GET",
+      headers: {
+          ...this._headers,
+          Authorization: `Bearer ${token}`
+      },
+  }).then((res) => this._error(res));
   }
+
+  // getUserInfo() {
+  //   return fetch(`${this.url}/users/me`, {
+  //     method: "GET",
+  //     headers: this.headers,
+  //   }).then((res) => this._error(res));
+  // }
 
   changeUserInfo(data) {
     return fetch(`${this.url}/users/me`, {

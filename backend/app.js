@@ -1,10 +1,13 @@
 // eslint-disable-next-line no-use-before-define
 const express = require('express');
+require('dotenv').config();
+
+const app = express();
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 
-const cors = require('cors');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
@@ -17,7 +20,6 @@ const { allowedCors } = require('./utils/allowedCors');
 const PORT = process.env.PORT || 3000;
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
-const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
