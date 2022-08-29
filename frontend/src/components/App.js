@@ -40,6 +40,25 @@ function App() {
   const history = useHistory();
   const [token, setToken] = React.useState('');
 
+  React.useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (isLoggedIn) {
+        Promise.all([api.getUserInfo(token), api.getInitialCards(token)])                    
+            .then(([user, cards]) => {
+                setCurrentUser(user);
+                setEmail(user.email);
+                setCards(cards);
+                history.push("/");
+            })
+            .catch((err) => console.log(err));
+        }
+    if (!isLoggedIn) { setCurrentUser({}); }
+  }, [isLoggedIn]);
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -123,21 +142,6 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  React.useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (isLoggedIn) {
-        Promise.all([api.getUserInfo(token), api.getInitialCards(token)])                    
-            .then(([user, cards]) => {
-                setCurrentUser(user);
-                setEmail(user.email);
-                setCards(cards);
-                history.push("/");
-            })
-            .catch((err) => console.log(err));
-        }
-    if (!isLoggedIn) { setCurrentUser({}); }
-  }, [isLoggedIn]);
-
   ////////////////////////////новая интерактивность////////////////////////
 
   function handleInfoOpen(res) {
@@ -209,10 +213,6 @@ function App() {
         console.log(err);
       });
   }
-
-  React.useEffect(() => {
-    tokenCheck();
-  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
