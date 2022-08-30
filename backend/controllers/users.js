@@ -5,10 +5,12 @@ const BadRequest = require('../errors/BadRequest');
 const Conflict = require('../errors/Conflict');
 const NotFound = require('../errors/NotFound');
 
+const { JWT_SECRET = 'some-secret-key' } = process.env;
+
 module.exports.getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
-      res.status(200).send({ users });
+      res.status(200).send({ data: users });
     })
     .catch(next);
 };
@@ -19,7 +21,7 @@ module.exports.getUser = (req, res, next) => {
       if (!user) {
         throw new NotFound('По данному запросу пользователи не найдены');
       }
-      res.status(200).send({ user });
+      res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -36,7 +38,7 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFound('По данному запросу пользователи не найдены');
       }
-      res.status(200).send({ user });
+      res.status(200).send(user);
     })
     .catch(next);
 };
@@ -50,9 +52,9 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then(() => res.status(200).send({
+    .then((user) => res.status(200).send({
       data: {
-        name, about, avatar, email,
+        _id: user._id, name, about, avatar, email,
       },
     }))
     .catch((err) => {
@@ -74,7 +76,7 @@ module.exports.updateUser = (req, res, next) => {
       if (!user) {
         throw new NotFound('По данному запросу пользователи не найдены');
       }
-      res.status(200).send({ user });
+      res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -111,7 +113,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        process.env.JWT_SECRET || 'my-secret-key',
+        JWT_SECRET,
         { expiresIn: '7d' },
       );
       res.send({ token });
