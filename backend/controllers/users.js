@@ -116,6 +116,7 @@ module.exports.login = (req, res, next) => {
         'my-secret-key',
         { expiresIn: '7d' },
       );
+      res.cookie('token', token);
       res.send({ token });
     })
     .catch(next);
