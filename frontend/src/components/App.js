@@ -47,7 +47,6 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (isLoggedIn) {
-      console.log('sfsdgdegeg')
         Promise.all([api.getUserInfo(token), api.getInitialCards(token)])                    
             .then(([user, cards]) => {
                 setCurrentUser(user);
@@ -57,7 +56,7 @@ function App() {
             })
             .catch((err) => console.log(err));
         }
-    if (!isLoggedIn) { console.log('111111111'); setCurrentUser({}); }
+    if (!isLoggedIn) { setCurrentUser({}); }
   }, [isLoggedIn]);
 
   function handleEditProfileClick() {
